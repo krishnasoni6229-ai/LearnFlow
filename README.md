@@ -118,20 +118,19 @@ npx expo start
 
 ## 📱 Screenshots of Main Screens
 
-| 📱 Course Dashboard | 📱 Course Details | 📱 Dynamic WebView |
+| 📱 Course Feed | 📱 Course Details | 📱 Dynamic WebView |
 |:---:|:---:|:---:|
-| ![Dashboard](/assets/images/screenshot_dashboard.png) | ![Details](/assets/images/screenshot_details.png) | ![WebView](/assets/images/screenshot_webview.png) |
+| ![Dashboard](./assets/images/screenshot_dashboard.png) | ![Details](./assets/images/screenshot_details.png) | ![WebView](./assets/images/screenshot_webview.png) |
 
 | 📱 User Profile | 📱 Dark Mode | 📱 Offline Resilience |
 |:---:|:---:|:---:|
-| ![Profile](/assets/images/screenshot_profile.png) | ![Dark Mode](/assets/images/screenshot_dark.png) | ![Offline](/assets/images/screenshot_offline.png) |
+| ![Profile](./assets/images/screenshot_profile.png) | ![Dark Mode](./assets/images/screenshot_dark.png) | ![Offline](./assets/images/screenshot_offline.png) |
 
 ---
 
 ## 🎥 Demo Video Walkthrough
-A complete **3-5 minute demo video walkthrough** covering authentication, course exploration, offline handling, notifications, and AI search is hosted inside the artifacts directory:
-`[LearnFlow Demo Walkthrough](file:///Users/macbookpro/LearnFlow/assets/videos/demo_walkthrough.mp4)`
+A complete **3-5 minute demo video walkthrough** covering authentication, course exploration, offline handling, notifications, and AI search can be found at:
+`[LearnFlow Demo Walkthrough](./assets/videos/demo_walkthrough.mp4)`
 
----
 
 
