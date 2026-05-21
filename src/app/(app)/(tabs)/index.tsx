@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { LegendList, LegendListRef } from '@legendapp/list';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { LegendList } from '@legendapp/list';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Platform, RefreshControl, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CourseCard } from '../../../components/CourseCard';
@@ -42,7 +42,6 @@ EmptyState.displayName = 'EmptyState';
 
 export default function CoursesScreen() {
   const dispatch = useAppDispatch();
-  const listRef = useRef<LegendListRef>(null);
   const { height: screenHeight, width: screenWidth } = useWindowDimensions();
 
   const [search, setSearch] = useState('');
@@ -75,22 +74,7 @@ export default function CoursesScreen() {
     return list;
   }, [courses, activeCategory, debouncedSearch, aiMatchingIds]);
 
-  // Scroll to top on filter change.
-  // Double-RAF ensures LegendList has committed its new layout (new data + new header)
-  // before we scroll, preventing the "jumped to center" bug when switching to 'All'.
-  useEffect(() => {
-    let raf1: ReturnType<typeof requestAnimationFrame>;
-    let raf2: ReturnType<typeof requestAnimationFrame>;
-    raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => {
-        listRef.current?.scrollToOffset({ offset: 0, animated: false });
-      });
-    });
-    return () => {
-      cancelAnimationFrame(raf1);
-      cancelAnimationFrame(raf2);
-    };
-  }, [search, activeCategory]);
+  // Scroll to top and layout resets are handled cleanly via the key prop on LegendList
 
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -204,7 +188,7 @@ export default function CoursesScreen() {
       <OfflineBanner />
       <SafeAreaView edges={['top']} className="flex-1">
         <LegendList
-          ref={listRef}
+          key={`${activeCategory}-${debouncedSearch}`}
           data={filtered}
           keyExtractor={keyExtractor}
           renderItem={renderItem}

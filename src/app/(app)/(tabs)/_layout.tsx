@@ -29,6 +29,9 @@ export default function TabsLayout() {
           // Slightly lighter than slate-950 so the bar is visible in dark mode
           backgroundColor: isDark ? '#1E293B' : '#ffffff',
           position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
           zIndex: 999,
         },
         tabBarLabelStyle: {

@@ -13,6 +13,7 @@ import { loadPreferences } from '../store/slices/preferencesSlice';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'nativewind';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 // Global Font Patch: Ensure all Text components fallback to Inter-Regular if no fontFamily is set
@@ -178,12 +179,14 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <AuthGuard>
-          <Stack screenOptions={{ headerShown: false }} />
-        </AuthGuard>
-      </QueryClientProvider>
-      <Toast config={toastConfig} topOffset={60} visibilityTime={4000} />
+      <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthGuard>
+            <Stack screenOptions={{ headerShown: false }} />
+          </AuthGuard>
+        </QueryClientProvider>
+        <Toast config={toastConfig} topOffset={60} visibilityTime={4000} />
+      </SafeAreaProvider>
     </Provider>
   );
 }
