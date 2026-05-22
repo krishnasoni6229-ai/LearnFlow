@@ -1,13 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { Platform, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabsLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const insets = useSafeAreaInsets();
-  const bottomPadding = insets.bottom > 0 ? insets.bottom : (Platform.OS === 'ios' ? 40 : 12);
+ const TAB_HEIGHT = insets.bottom + 65
 
   return (
     <Tabs
@@ -23,9 +23,10 @@ export default function TabsLayout() {
           shadowOpacity: isDark ? 0.5 : 0.08,
           shadowRadius: 20,
           shadowOffset: { width: 0, height: -10 },
-          height: 60 + bottomPadding,
-          paddingBottom: bottomPadding,
-          paddingTop: 12,
+          height: TAB_HEIGHT,
+          paddingTop: 8,
+          paddingBottom: insets.bottom,
+
           // Slightly lighter than slate-950 so the bar is visible in dark mode
           backgroundColor: isDark ? '#1E293B' : '#ffffff',
           position: 'absolute',
@@ -38,6 +39,7 @@ export default function TabsLayout() {
           fontWeight: '700',
           fontSize: 10,
           marginTop: 4,
+
         },
       }}
     >

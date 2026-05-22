@@ -3,19 +3,26 @@ import { Image } from 'expo-image';
 import { Link } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useRegister } from '../../hooks/useAuth';
+import { useResponsive } from '../../hooks/useResponsive';
 import { RegisterForm, registerSchema } from '../../schemas/auth.schema';
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const LOGO = require('../../../assets/images/logo.png');
 
 export default function RegisterScreen() {
   const registerMutation = useRegister();
-  const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+  const {
+    screenWidth,
+    screenHeight,
+    isSmallScreen,
+    containerPadding,
+    logoSize,
+    logoBorderRadius,
+  } = useResponsive();
 
   const { control, handleSubmit, formState: { errors } } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
@@ -29,10 +36,6 @@ export default function RegisterScreen() {
   const onSubmit = (data: RegisterForm) => {
     registerMutation.mutate(data);
   };
-
-  const isSmallScreen = screenHeight < 720;
-  const logoIconSize = isSmallScreen ? 24 : 32;
-  const containerPadding = screenWidth > 480 ? 'px-16' : 'px-6';
 
   return (
     <View className="flex-1 bg-slate-50 dark:bg-slate-950">
@@ -75,9 +78,9 @@ export default function RegisterScreen() {
                 <Image
                   source={LOGO}
                   style={{
-                    width: isSmallScreen ? 72 : 90,
-                    height: isSmallScreen ? 72 : 90,
-                    borderRadius: isSmallScreen ? 20 : 24,
+                    width: logoSize,
+                    height: logoSize,
+                    borderRadius: logoBorderRadius,
                   }}
                   contentFit="cover"
                   transition={200}

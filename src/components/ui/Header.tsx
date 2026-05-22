@@ -1,7 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useResponsive } from '../../hooks/useResponsive';
 import Toast from 'react-native-toast-message';
 import { useAppDispatch } from '../../hooks/useRedux';
 import { setTheme } from '../../store/slices/preferencesSlice';
@@ -25,7 +26,6 @@ export function Header({
   subtitleColor = 'text-slate-500 dark:text-slate-400',
   containerClassName = 'flex-row justify-between items-end px-5 pt-4 pb-3 w-full',
 }: HeaderProps) {
-  const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
   const { colorScheme, setColorScheme } = useColorScheme();
 
@@ -41,8 +41,8 @@ export function Header({
   };
 
   // Responsive styling based on screen width
-  const isSmallScreen = width < 375;
-  const titleSize = isSmallScreen ? 'text-[28px]' : 'text-[32px]';
+  const { isSmallWidth } = useResponsive();
+  const titleSize = isSmallWidth ? 'text-[28px]' : 'text-[32px]';
 
   return (
     <View className={containerClassName}>

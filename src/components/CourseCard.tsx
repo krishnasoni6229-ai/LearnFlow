@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React, { memo, useCallback } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useResponsive } from '../hooks/useResponsive';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { toggleBookmark } from '../store/slices/courseSlice';
 import { CourseItem } from '../types/course';
@@ -20,7 +21,7 @@ const BOOKMARK_COLOR_INACTIVE = '#94A3B8';
 function CourseCardComponent({ course }: CourseCardProps) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { width: screenWidth } = useWindowDimensions();
+  const { isTablet } = useResponsive();
   const bookmarks = useAppSelector((s) => s.courses.bookmarks);
   const isBookmarked = bookmarks.some((b) => b.id === course.id);
 
@@ -38,7 +39,6 @@ function CourseCardComponent({ course }: CourseCardProps) {
     ((course.originalPrice - course.price) / course.originalPrice) * 100
   );
 
-  const isTablet = screenWidth >= 768;
   const imageHeight = isTablet ? 240 : 195;
   const cardMarginBottom = isTablet ? 28 : 20;
 

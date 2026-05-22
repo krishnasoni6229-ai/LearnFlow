@@ -1,5 +1,6 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps, useWindowDimensions } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { useResponsive } from '../../hooks/useResponsive';
 
 interface ButtonProps extends TouchableOpacityProps {
   label: string;
@@ -15,7 +16,6 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const { width } = useWindowDimensions();
 
   const getVariantClasses = () => {
     switch (variant) {
@@ -48,9 +48,9 @@ export function Button({
   const opacityClass = isDisabled ? 'opacity-70' : 'opacity-100';
 
   // Responsive button scaling based on window width
-  const isSmallScreen = width < 375;
-  const paddingClass = isSmallScreen ? 'py-3 rounded-xl' : 'py-4 rounded-2xl';
-  const textClass = isSmallScreen ? 'text-base' : 'text-lg';
+  const { isSmallWidth } = useResponsive();
+  const paddingClass = isSmallWidth ? 'py-3 rounded-xl' : 'py-4 rounded-2xl';
+  const textClass = isSmallWidth ? 'text-base' : 'text-lg';
 
   return (
     <TouchableOpacity

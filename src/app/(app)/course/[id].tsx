@@ -9,9 +9,9 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useWindowDimensions,
   View
 } from 'react-native';
+import { useResponsive } from '../../../hooks/useResponsive';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { useCourses } from '../../../hooks/useCourses';
@@ -37,7 +37,7 @@ export default function CourseDetailScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
-  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
+  const { screenWidth, screenHeight, isSmallWidth } = useResponsive();
 
   const { courses } = useCourses();
   const bookmarks = useAppSelector((s) => s.courses.bookmarks);
@@ -108,8 +108,7 @@ export default function CourseDetailScreen() {
   );
 
   // Dynamic values based on screen width
-  const isSmallScreen = screenWidth < 375;
-  const titleSizeClass = isSmallScreen ? 'text-2xl mb-4' : 'text-[30px] leading-tight mb-5';
+  const titleSizeClass = isSmallWidth ? 'text-2xl mb-4' : 'text-[30px] leading-tight mb-5';
 
   return (
     <View className="flex-1 bg-[#F8FAFC] dark:bg-slate-900">
