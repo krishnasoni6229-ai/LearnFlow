@@ -7,9 +7,10 @@
     "icon": "./assets/images/icon.png",
     "scheme": "learnflow",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "icon": "./assets/expo.icon"
-    },
+   "ios": {
+  "bundleIdentifier": "com.krishna12.learnflow",
+  "icon": "./assets/expo.icon"
+},
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
